@@ -41,4 +41,25 @@ const updateHero = async (req, res) => {
   }
 };
 
-module.exports = { getHero, updateHero };
+// @desc    Delete hero image
+// @route   DELETE /api/hero/image
+// @access  Private/Admin
+const deleteHeroImage = async (req, res) => {
+  try {
+    const hero = await Hero.findOne();
+    
+    if (!hero) {
+      return res.status(404).json({ message: 'Hero content not found' });
+    }
+    
+    // Remove the image by setting it to a default empty image or placeholder
+    hero.imageUrl = '';
+    await hero.save();
+    
+    res.json({ success: true, message: 'Hero image deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+module.exports = { getHero, updateHero, deleteHeroImage };

@@ -9,6 +9,7 @@ const serviceRoutes = require('./routes/serviceRoutes');
 const teamRoutes = require('./routes/teamRoutes');
 const contentRoutes = require('./routes/contentRoutes');
 const contactRoutes = require('./routes/contactRoutes');
+const newsPostRoutes = require('./routes/newsPostRoutes');
 
 // Connect to Database
 connectDB();
@@ -34,6 +35,7 @@ app.use('/api/services', serviceRoutes);
 app.use('/api/team', teamRoutes);
 app.use('/api/content', contentRoutes);
 app.use('/api/contact', contactRoutes);
+app.use('/api/news-posts', newsPostRoutes);
 
 // Error Handling Middleware
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');

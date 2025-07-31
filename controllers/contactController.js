@@ -19,7 +19,7 @@ const getContactInfo = async (req, res) => {
 // @route   PUT /api/contact
 // @access  Private/Admin
 const updateContactInfo = async (req, res) => {
-  const { address, phone, email } = req.body;
+  const { address, phone, email, hours } = req.body;
 
   try {
     let contact = await Contact.findOne();
@@ -29,10 +29,11 @@ const updateContactInfo = async (req, res) => {
       contact.address = address || contact.address;
       contact.phone = phone || contact.phone;
       contact.email = email || contact.email;
+      contact.hours = hours || contact.hours;
       await contact.save();
     } else {
       // Create new contact info if it doesn't exist
-      contact = await Contact.create({ address, phone, email });
+      contact = await Contact.create({ address, phone, email, hours });
     }
 
     res.json(contact);

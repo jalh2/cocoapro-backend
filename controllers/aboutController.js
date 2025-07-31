@@ -67,4 +67,25 @@ const updateAbout = async (req, res) => {
   }
 };
 
-module.exports = { getAbout, updateAbout };
+// @desc    Delete about image
+// @route   DELETE /api/about/image
+// @access  Private/Admin
+const deleteAboutImage = async (req, res) => {
+  try {
+    const about = await About.findOne();
+    
+    if (!about) {
+      return res.status(404).json({ message: 'About content not found' });
+    }
+    
+    // Remove the image by setting it to an empty string
+    about.imageUrl = '';
+    await about.save();
+    
+    res.json({ success: true, message: 'About image deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+module.exports = { getAbout, updateAbout, deleteAboutImage };
